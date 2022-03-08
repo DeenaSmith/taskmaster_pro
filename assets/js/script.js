@@ -20,6 +20,8 @@ var createTask = function(taskText, taskDate, taskList) {
   $("#list-" + taskList).append(taskLi);
 };
 
+
+
 var loadTasks = function() {
   tasks = JSON.parse(localStorage.getItem("tasks"));
 
@@ -45,6 +47,8 @@ var loadTasks = function() {
 var saveTasks = function() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
+
+
 
 var auditTask = function(taskEl) {
 
@@ -72,6 +76,8 @@ var auditTask = function(taskEl) {
     $(taskEl).addClass("list-group-item-warning");
   }
 };
+
+
 
 // enable draggable/sortable feature on list-group elements
 $(".card .list-group").sortable({
@@ -142,6 +148,8 @@ $("#trash").droppable({
   }
 });
 
+
+
 // convert text field into a jquery date picker
 $("#modalDueDate").datepicker({
   // force user to select a future date
@@ -159,6 +167,8 @@ $("#task-form-modal").on("shown.bs.modal", function() {
   // highlight textarea
   $("#modalTaskDescription").trigger("focus");
 });
+
+
 
 // save button in modal was clicked
 $("#task-form-modal .btn-primary").click(function() {
@@ -181,6 +191,8 @@ $("#task-form-modal .btn-primary").click(function() {
     saveTasks();
   }
 });
+
+
 
 // task text was clicked
 $(".list-group").on("click", "p", function() {
@@ -288,3 +300,12 @@ $("#remove-tasks").on("click", function() {
 
 // load tasks for the first time
 loadTasks();
+
+
+
+// AUDIT Time/Update
+setInterval(function () {
+    $(".card .list-group-item").each(function(index, el) {
+      auditTask(el);
+    });
+  }, 1800000);
